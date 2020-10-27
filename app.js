@@ -15,7 +15,16 @@ const server = http.createServer((req, res) => {
   const path = parsedURL.pathname;
   const trimmedPath = path.replace(/^\/+|\/+$/g, "");
 
-  console.log(trimmedPath);
+  //get HTTP method
+  const method = req.method.toLowerCase();
+
+  //get query string as an obj
+  const queryStringOBJ = parsedURL.query;
+
+  //get the headers as an obj
+  const headers = req.headers;
+
+  console.log(headers["user-agent"]);
 
   //send response
   res.end("welcome");
