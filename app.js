@@ -5,6 +5,7 @@
 
 const http = require("http");
 const url = require("url");
+const { StringDecoder } = require("string_decoder");
 
 //the server should respond to all request with a string
 const server = http.createServer((req, res) => {
@@ -24,10 +25,20 @@ const server = http.createServer((req, res) => {
   //get the headers as an obj
   const headers = req.headers;
 
-  console.log(headers["user-agent"]);
+  //Get the payload if any
+  const decoder = new StringDecoder("utf-8");
+  let buffer = "";
+  req.on("data", (data) => {
+    buffer += decoder.write(data);
+  });
+  req.on("end", () => {
+    buffer += decoder.end();
 
-  //send response
-  res.end("welcome");
+    console.log(buffer);
+
+    //send response
+    res.end("welcome");
+  });
 });
 
 server.listen(3000, () => {
