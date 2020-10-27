@@ -6,6 +6,7 @@
 const http = require("http");
 const url = require("url");
 const { StringDecoder } = require("string_decoder");
+const config = require("./config");
 
 //the server should respond to all request with a string
 const server = http.createServer((req, res) => {
@@ -14,7 +15,7 @@ const server = http.createServer((req, res) => {
 
   //get the path
   const path = parsedURL.pathname;
-  const trimmedPath = path.replace(/^\/+|\/+$/g, "");
+  const trimmedPath = path.replace(/^\/+|\/+$/g, "").toLowerCase();
 
   //get HTTP method
   const method = req.method.toLowerCase();
@@ -69,8 +70,8 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("listening on port 3000");
+server.listen(config.port, () => {
+  console.log(`listening on port ${config.port} in ${config.envName}`);
 });
 
 //define the handlers
@@ -78,11 +79,11 @@ const handlers = {};
 
 //Sample handler
 handlers.sample = (data, callback) => {
-  callback(500, { msg: "in the sample route" });
+  callback(200, { msg: "in the sample route" });
 };
 //not found handler
 handlers.notfound = (data, callback) => {
-  callback(404, { msg: "not found" });
+  callback(404, { msg: "not found route" });
 };
 // define request router
 
