@@ -10,6 +10,8 @@ const url = require("url");
 const { StringDecoder } = require("string_decoder");
 const config = require("./config");
 const fs = require("fs");
+const handlers = require("./lib/handlers");
+const helpers = require("./lib/helpers");
 
 //Create http server
 const httpServer = http.createServer((req, res) => {
@@ -74,7 +76,7 @@ const server = (req, res) => {
       queryStringOBJ: queryStringOBJ,
       method: method,
       headers: headers,
-      payload: buffer,
+      payload: helpers.parsejsonToObj(buffer),
     };
     //Route the request to the handler specified in the router
     choosenHandler(data, (statusCode, payload) => {
@@ -97,20 +99,9 @@ const server = (req, res) => {
   });
 };
 
-//define the handlers
-const handlers = {};
-
-//Ping handler
-handlers.ping = (data, callback) => {
-  callback(200, { msg: "in the ping route" });
-};
-//not found handler
-handlers.notfound = (data, callback) => {
-  callback(404, { msg: "not found route" });
-};
 // define request router
-
-let router = {
+const router = {
   ping: handlers.ping,
   notfound: handlers.notfound,
+  users: handlers.users,
 };
