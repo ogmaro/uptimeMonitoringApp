@@ -99,9 +99,9 @@ const server = (req, res) => {
 //define the handlers
 const handlers = {};
 
-//Sample handler
-handlers.sample = (data, callback) => {
-  callback(200, { msg: "in the sample route" });
+//Ping handler
+handlers.ping = (data, callback) => {
+  callback(200, { msg: "in the ping route" });
 };
 //not found handler
 handlers.notfound = (data, callback) => {
@@ -110,6 +110,6 @@ handlers.notfound = (data, callback) => {
 // define request router
 
 let router = {
-  sample: handlers.sample,
+  ping: handlers.ping,
   notfound: handlers.notfound,
 };
