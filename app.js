@@ -4,12 +4,38 @@
  */
 
 const http = require("http");
+const https = require("https");
 const url = require("url");
 const { StringDecoder } = require("string_decoder");
 const config = require("./config");
+const fs = require("fs");
+
+//Create http server
+const httpServer = http.createServer((req, res) => {
+  server(req, res);
+});
+
+//Start http server
+httpServer.listen(config.httpPort, () => {
+  console.log(`listening on port ${config.httpPort} in ${config.envName}`);
+});
+
+//Create https server
+const httpsServerOptions = {
+  key: fs.readFileSync("./https/key.pem"),
+  cert: fs.readFileSync("./https/cert.pem"),
+};
+const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
+  server(req, res);
+});
+
+//Start https server
+httpsServer.listen(config.httpsPort, () => {
+  console.log(`listening on port ${config.httpsPort} in ${config.envName}`);
+});
 
 //the server should respond to all request with a string
-const server = http.createServer((req, res) => {
+const server = (req, res) => {
   //Get the url and parse it
   const parsedURL = url.parse(req.url, true);
 
@@ -68,11 +94,7 @@ const server = http.createServer((req, res) => {
       res.end(payloadSting);
     });
   });
-});
-
-server.listen(config.port, () => {
-  console.log(`listening on port ${config.port} in ${config.envName}`);
-});
+};
 
 //define the handlers
 const handlers = {};
