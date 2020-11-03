@@ -104,4 +104,5 @@ const router = {
   ping: handlers.ping,
   notfound: handlers.notfound,
   users: handlers.users,
+  tokens: handlers.tokens,
 };
