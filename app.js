@@ -105,4 +105,5 @@ const router = {
   notfound: handlers.notfound,
   users: handlers.users,
   tokens: handlers.tokens,
+  checks: handlers.checks,
 };
