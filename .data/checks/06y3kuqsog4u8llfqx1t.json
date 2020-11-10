@@ -1,8 +1,8 @@
 {
   "id": "06y3kuqsog4u8llfqx1t",
   "userPhone": "0123465769",
-  "protocol": "http",
-  "url": "fb.com",
+  "protocol": "https",
+  "url": "eco.com",
   "method": "get",
   "successCodes": [
     200,
