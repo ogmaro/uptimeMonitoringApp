@@ -11,6 +11,11 @@ enviroments.staging = {
   envName: "staging",
   hashingSecret: "hidden",
   maxChecks: 5,
+  twilio: {
+    accountSid: "",
+    authToken: "",
+    fromPhone: "",
+  },
 };
 
 //Production envirooment
@@ -21,6 +26,11 @@ enviroments.production = {
   envName: "production",
   hashingSecret: "hidden",
   maxChecks: 5,
+  twilio: {
+    accountSid: "",
+    authToken: "",
+    fromPhone: "",
+  },
 };
 
 //Determine which enviroment was passed as a a Command line argument
